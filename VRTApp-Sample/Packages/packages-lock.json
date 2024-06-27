@@ -272,7 +272,7 @@
       "hash": "be9f3420a5826ca9a7b9f4f9c7b57f007873d671"
     },
     "nl.cwi.dis.vr2gather": {
-      "version": "git+https://github.com/cwi-dis/VR2Gather?path=/nl.cwi.dis.vr2gather",
+      "version": "git+https://github.com/cwi-dis/VR2Gather-acmmm-oss?path=/nl.cwi.dis.vr2gather",
       "depth": 0,
       "source": "git",
       "dependencies": {
@@ -288,10 +288,10 @@
         "com.unity.xr.openxr": "1.10.0",
         "com.unity.nuget.newtonsoft-json": "3.2.1"
       },
-      "hash": "eeb3da74503ff007bca305751f3fa0d0a327dba3"
+      "hash": "cdadf8eae6a2a18658c0722078a33cc21c125229"
     },
     "nl.cwi.dis.vr2gather.nativelibraries": {
-      "version": "git+https://github.com/cwi-dis/VR2G-nativeLibraries?path=/nl.cwi.dis.vr2gather.nativelibraries",
+      "version": "git+https://github.com/cwi-dis/VR2G-nativeLibraries?path=/nl.cwi.dis.vr2gather.nativelibraries#cd233771f01ae85fe54ee4ff31470e133b756b91",
       "depth": 0,
       "source": "git",
       "dependencies": {},
