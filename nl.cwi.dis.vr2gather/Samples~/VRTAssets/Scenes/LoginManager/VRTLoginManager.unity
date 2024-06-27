@@ -523,6 +523,7 @@ MonoBehaviour:
   fadeOutText: 
   allowDirectInteractionInScene: 0
   sceneIsSingleUser: 1
+  NextSceneOnSessionEnd: VRTLoginManager
   m_directInteractionDisabled: 0
   selfPlayer: {fileID: 1151372263}
 --- !u!4 &772475570
@@ -881,7 +882,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f5d4564cc5748f44a078ede34cbd4e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  orchestratorURL: http://192.16.197.145:8090/
+  orchestratorURL: http://localhost:8090/
   targetFrameRate: -1
   ntpSyncThreshold: 0.1
   statsInterval: 10

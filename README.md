@@ -1,40 +1,122 @@
-# VR2Gather - Unity package for immersive social VR
+# ACM Multimedia Open Source Competition
 
-VR2Gather is an Unity package to allow creating immersive social VR applications in Unity. Participants in a VR2Gather-based experience can be represented as live volumetric video, and see themselves as they are captured live, thereby allowing more realistic social interaction than in avatar-only based systems.
+## Prerequisites
 
-VR2Gather experiences do not rely on a central cloud-based game engine. Each participant runs a local copy of the application, and communication and synchronization is handled through a central experience-agnostic  _Orchestrator_ that handles forwarding of control messages, point cloud streams and conversational audio between the participants.
+This document will help you get set up with VR2Gather. In order to launch
+VR2Gather, we first have to make sure you have a couple of things installed:
 
-VR2Gather is a descendent from `VRTApplication` created in the [VRTogether](https://vrtogether.eu) project, and further developed in the [Mediascape XR](https://www.dis.cwi.nl/funding/mediascape/) and [Transmixr](https://transmixr.eu) projects. Current development is primarily done by the [CWI DIS group](https://www.dis.cwi.nl).
+- *Docker*: For running the VR2Gather Orchestrator.
+  Get it here: https://www.docker.com/products/docker-desktop/
+- *Unity Hub*: For launching the VR2Gather demo application.
+  Get it here: https://unity.com/download
+- *cwipc*: A open-source point cloud compression library.
+  Get it here: https://github.com/cwi-dis/cwipc/releases/tag/v7.5.3
 
-> This work was supported through "PPS programmatoeslag TKI" Fund of the Dutch Ministry of Economic Affairs and Climate Policy and CLICKNL, the European Commission H2020 program, under the grant agreement 762111, VRTogether, http://vrtogether.eu/, and the European Commission Horizon Europe program, under the grant agreement 101070109, TRANSMIXR, https://transmixr.eu/. Funded by the European Union.
+Hardware requirements:
 
-If you use this code or parts thereof, we kindly ask you to cite the relevant publication:
+- A capable machine with a modern graphics card
+- A VR headset, preferably an Meta Quest 2 or Meta Quest Pro (optional but
+  encouraged)
+- A depth camera, either a Azure Kinect or Intel Realsense (optional)
 
->I. Viola, J. Jansen, S. Subramanyam, I. Reimat and P. Cesar, "VR2Gather: A Collaborative, Social Virtual Reality System for Adaptive, Multiparty Real-Time Communication," in IEEE MultiMedia, vol. 30, no. 2, pp. 48-59, April-June 2023, doi: 10.1109/MMUL.2023.3263943.
+In order to launch a shared experience over the network, a second setup like
+this is required. Though single-user experiences work just as well.
 
-Except where otherwise noted VR2Gather is copyright Centrum Wiskunde & Informatica, and distributed under the MIT license.
+Note that while downloading and installing `cwipc` is optional and VR2Gather
+will work without it, we do encourage you to do so, as it demonstrates the
+point cloud streaming capabilities of the platform, even if you don't own a
+depth camera through synthetic point clouds.
 
-## Installing the VR2Gather package
+Further, though VR2Gather is cross-platform compatible, it is easiest to set up
+and use on Windows. Some of the functionality may even not be available on
+other platforms, e.g. support for VR headsets or point cloud acquisition.
 
-VR2Gather requires Unity 2022.3.
+## Setup
 
-VR2Gather requires a fair number of Unity packages and native packages. All of these are either freely available through the Unity Package Manager, or available as open source.
+### Orchestrator
 
-Please read the [Installation guide](Documentation/02-installation.md).
+Unzip the archive `VR2Gather-Orchestrator.zip` and using a terminal
+application, enter the extracted folder and run the following command to launch
+a new container using Docker:
 
-We mean it: please read the [Installation guide](Documentation/02-installation.md). Also if you have used VR2Gather before. A lot of things have changed, and ensuring you have all the right bits and pieces installed, and you have done so in the right order, will save you a lot of headaches.
+    docker compose up
 
-There is more documentation in [Documentation/01-overview.md](Documentation/01-overview.md) explaining how to develop your own VR experiences using VR2Gather.
+This will launch the VR2Gather orchestrator on port 8090, ready to accept
+connections.
 
-## Developing on VR2Gather itself
+### `cwipc`
 
-If you want to make changes to VR2Gather you should check out this repository, <https://github.com/cwi-dis/VR2Gather>. But really only then: otherwise just install the Unity package through the package manager (following the instructions above).
+Download the latest installer for `cwipc` from Github at this address:
+https://github.com/cwi-dis/cwipc/releases/tag/v7.5.3
 
-At the toplevel folder you will find the source of the Unity package, `nl.cwi.dis.vr2gather`.
+Open the installer, follow the instructions and wait for the installation to
+complete. Note that this is optional, if you either don't have a depth camera
+or simply don't need point cloud support. VR2Gather will work without it.
 
-You will also find 2 Unity projects:
+### VR2Gather
 
-- `VRTApp-Develop` is a pretty empty project that imports `nl.cwi.dis.vr2gather` by relative pathname. This has the advantage that as you make changes to any of the files from the package these changes will be made in-place, so you can then commit and push them later. There is also a trick with a symlink used to include the Samples into this project.
-- `VRTApp-Sample` imports the package normally, i.e. using the github URL. So after you have made changes using VRTApp-Develop and pushed those changes you can open VRTApp-Sample, update the package, re-install the samples, and check that your changes actually work and have been pushed.
+The following paragraphs will guide you through setting up a quick demo
+experience complete with point cloud rendering (if available). The application
+that you are going to be opening, `VRTApp-Sample` represents a minimum viable
+setup to build a VR2Gather application. The source code for the VR2Gather
+Unity package itself can be found in the folder `nl.cwi.dis.vr2gather/`.
 
-After making changes, and before pushing or testing with VRTApp-Sample you should _always_ change the package version number in `nl.cwi.dis.vr2gather/package.json`. Otherwise the Unity package manager will think that package has not changed and it will not re-import it.
+If available, connect your depth camera and VR headset to your computer and
+make sure they are running correctly.
+
+Extract the archive `VR2Gather.zip` and open *Unity Hub*. Click *Add*, followed
+by *Add project from disk*. Navigate to the extracted *VR2Gather* folder,
+select *VRTApp-Sample* and click *Add Project*. Wait for Unity Hub to
+potentially finish installing the editor and then open the project. On the
+first launch, this will take a short while as Unity installs all dependencies.
+
+Once opened, in the project window, select *All Scenes* and double-click
+`VRTLoginManager` to open to login manager scene. Hit the play button to launch
+the experience.
+
+If you want to have a Social VR experience with a second participant, these
+steps need to be repeated on a second machine as well. Also make sure that on
+the second machine, once you have opened the `VRTLoginManager` scene, select
+the `VRTInitializer` GameObject and update the field *Orchestrator URL* to a
+hostname/IP address under which the orchestrator is reachable over the network,
+i.e. the IP address of the machine the orchestrator is running on.
+
+## Navigating the Experience
+
+First enter your username and confirm. The application will contact the
+orchestrator and fetch some basic information. If everything went well, your
+will be presented with a start menu. Hit *Play* to start a new experience.
+
+*Note:* If you are not using a headset, it may happen that all you see is a
+black screen. Try scrolling up on your scroll wheel to reveal the scene.
+
+If you share the experience with another participant:
+
+- On the first machine:
+  - Click *Create*, update session settings if necessary and confirm
+  - Then wait on the subsequent screen until your partners username shows up
+    in the list titled *Connected Users*
+  - Click *Start* and the experience will be launched
+- On the second machine:
+  - Click *Join* and wait for a session to appear in the dropdown menu titled
+    *Select session to join*
+  - Select the session and hit *Join* and the experience will be launched
+
+If you want to experience the scene alone:
+
+- Click *Create*, update session settings if necessary and confirm
+- Click *Start* and the experience will be launched
+
+On a keyboard, use WASD to navigate and the mouse's scroll wheel to adjust your
+vertical viewpoint. Hold ALT, use the mouse cursor and left click to interact
+with objects. Hold ALT, use the mouse cursor and right click to teleport.
+
+Hit ESC and click *Leave Session* to leave the session and return to the main
+menu.
+
+Using a VR headset, use the D-pad on your controller to navigate. Hold and
+release the trigger button to teleport. Extend your index finger and move
+towards interactable objects to interact with them.
+
+Hit the Oculus button on your controller and select *Leave Session* on the menu
+that pops up to leave the session and return to the main menu.
