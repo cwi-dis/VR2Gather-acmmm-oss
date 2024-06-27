@@ -1,4 +1,21 @@
-# ACM Multimedia Open Source Competition
+# VR2Gather - ACM Multimedia Open Source Competition
+
+**Download the submission archive [here](https://github.com/cwi-dis/VR2Gather-acmmm-oss/releases/download/submission/acmmm-os-submission.zip).**
+
+This repository contains the code for the submission for the ACM Multimedia
+Open Source Competition. This is a purpose-built fork for reviewers to browse
+the code at the time of submission. Ongoing development of VR2Gather happens
+in the [main repository](https://github.com/cwi-dis/vr2gather). For general
+information about the project, visit the [project's website](https://www.dis.cwi.nl/vr2gather).
+
+Please note that the submission archive contains two other projects, as
+described in the explanatory paper. You can browse their source code at the
+links below:
+
+- [VR2Gather Orchestrator](https://github.com/cwi-dis/vr2gather-orchestrator-v2)
+- [cwipc_unity](https://github.com/cwi-dis/cwipc_unity)
+
+They are also included in the submission archive.
 
 ## Prerequisites
 
